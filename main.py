@@ -24,7 +24,7 @@ from scipy.stats import pearsonr
 warnings.filterwarnings("ignore")
 
 #Options and parameters.
-dataFileName = "Data.csv"
+dataFileName = "country_vaccinations.csv"
 
 #Functions used
 def clearNullsWIthMean(dataFrame, featureName):
@@ -33,8 +33,9 @@ def clearNullsWIthMean(dataFrame, featureName):
 	return None
 
 def showDescriptiveStats(dataFrame, featureName):
-	print(featureName, " | training set stats: ")
+	print(featureName, " | set stats: ")
 	print(dataFrame[featureName].describe())
+	print('\n')
 	return None
 
 #Read the data file
@@ -44,10 +45,20 @@ df = pd.read_csv(dataFileName)
 train_df, test_df = train_test_split(df,shuffle = True, test_size = 0.95, random_state=17)
 
 #Display descriptive statistics of the data set.
-showDescriptiveStats(train_df, '') #TODO: show all of the features.
+features = list(train_df.columns)
+for feat in features:
+	print(feat)
+	showDescriptiveStats(train_df, feat) #TODO: show all of the features.
 
 #Display boxplots
-#TODO: ^
+fig, axs = plt.subplots(1, len(features))
+xAxis = 0
+for dataset in features:
+    axs[xAxis].boxplot(test_df[dataset], notch = True)
+    axs[xAxis].set_title(dataset)
+    xAxis += 1
+fig.subplots_adjust(left=0, right=2, bottom=0, top=1, hspace=0.5, wspace=0.5) #adjust fig for increased spacing
+plt.show() #Show the boxplots
 
 #Display pairplots
 #TODO: ^
