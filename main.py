@@ -53,7 +53,7 @@ showDescriptiveStats(train_df, '') #TODO: show all of the features.
 #TODO: ^
 
 #Display scatterplot
-
+train_df, test_df = train_test_split(dataFileName,shuffle=True,test_size=0.95, random_state=17)
 #Display correlation among variables
 corr, _ = pearsonr(X, y)
 print('Pearsons correlation: %.3f' % corr)
