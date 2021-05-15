@@ -62,6 +62,8 @@ plt.show() #Show the boxplots
 
 #Display pairplots
 #TODO: ^
+sns.set()
+sns.pairplot(test_df[features]) #show pairplots
 
 #Display scatterplot
 train_df, test_df = train_test_split(dataFileName,shuffle=True,test_size=0.95, random_state=17)
