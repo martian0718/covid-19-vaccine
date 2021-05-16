@@ -41,19 +41,35 @@ def showDescriptiveStats(dataFrame, featureName):
 #Read the data file
 df = pd.read_csv(dataFileName)
 
++#Clean the data set
+#TODO ^
+#Clean null values
+#Clean non-2021 dates
+
 #Split the data set into a train and test set.
 train_df, test_df = train_test_split(df,shuffle = True, test_size = 0.95, random_state=17)
 
 #Display descriptive statistics of the data set.
 features = list(train_df.columns)
-for feat in features:
+featuresWithData = [
+	'total_vaccinations',
+	'people_vaccinated',
+	'people_fully_vaccinated',
+	'daily_vaccinations_raw',
+	'daily_vaccinations',
+	'total_vaccinations_per_hundred',
+	'people_vaccinated_per_hundred',
+	'people_fully_vaccinated_per_hundred',
+	'daily_vaccinations_per_million'
+]
+for feat in featuresWithData:
 	print(feat)
 	showDescriptiveStats(train_df, feat) #TODO: show all of the features.
 
 #Display boxplots
 fig, axs = plt.subplots(1, len(features))
 xAxis = 0
-for dataset in features:
+for dataset in featuresWithData:
     axs[xAxis].boxplot(test_df[dataset], notch = True)
     axs[xAxis].set_title(dataset)
     xAxis += 1
